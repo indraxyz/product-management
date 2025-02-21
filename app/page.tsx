@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Button, Stack, ProgressBar } from "react-bootstrap";
 
 export default function Home() {
   return (
@@ -22,6 +23,18 @@ export default function Home() {
           </li>
           <li>Save and see your changes instantly.</li>
         </ol>
+        {/* try bootsrtap */}
+        <Stack direction="horizontal" gap={2}>
+          <Button as="a" variant="primary" className="hover:underline">
+            Button as link
+          </Button>
+          <Button as="a" variant="success" className="hover:drop-shadow-lg">
+            Button as link
+          </Button>
+        </Stack>
+        <div className="w-full">
+          <ProgressBar animated now={60} />
+        </div>
 
         <div className="flex gap-4 items-center flex-col sm:flex-row">
           <a
