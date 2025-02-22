@@ -49,6 +49,14 @@ const Produk = () => {
     const form = e.currentTarget;
     e.preventDefault();
     e.stopPropagation();
+
+    if (harga == 0) {
+      setHarga(Number("-"));
+    }
+    if (stok == 0) {
+      setStok(Number("-"));
+    }
+
     setFormValidated(true);
 
     // validasi
