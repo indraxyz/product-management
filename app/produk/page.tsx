@@ -45,7 +45,7 @@ const Produk = () => {
   const [modalDelete, setModalDelete] = useState(false);
 
   // add
-  const submitProduk = (e) => {
+  const submitProduk = (e: React.FormEvent<HTMLFormElement>) => {
     const form = e.currentTarget;
     e.preventDefault();
     e.stopPropagation();
