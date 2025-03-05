@@ -10,9 +10,15 @@ Manajemen data produk
 ## Features
 
     Responsive Ui (dekstop-mobile)
-    Manage Product : add, edit, delete
-    ♻️ search product
-    ♻️ sorting produvt
+    state : react hooks (useState), redux
+    Manage Product :
+    list products (card)
+    form add & edit product with inputs validation,
+    delete product with confirmation
+    rest api : react query
+
+    ♻️ search products
+    ♻️ sorting products
 
 ## how to run locally
 
