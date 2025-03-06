@@ -13,13 +13,15 @@ Manajemen data produk
     Responsive Ui (dekstop-mobile)
     state : react hooks (useState), ♻️redux
     Manage Product :
-        ♻️list products (card),  paginate data, multiple selected data
+        list products (card), ♻️paginate data, ♻️multiple selected data
         form add & edit product with inputs ♻️validation (formik validation, yup schema builder),
         delete product with confirmation
         filter :
         ♻️ search products
         ♻️ sorting products
         ♻️ varian data by column
+    ♻️notif after action (toast)
+    ♻️component base
     rest api : ♻️swr
 
     run local

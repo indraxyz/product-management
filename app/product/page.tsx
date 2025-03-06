@@ -17,7 +17,7 @@ import {
   BsFilterCircleFill,
   BsSearch,
 } from "react-icons/bs";
-import { PRODUK } from "../../src/mock-data";
+import { PRODUK } from "../../lib/mock-data";
 import { useState } from "react";
 
 // type
@@ -49,13 +49,6 @@ const Produk = () => {
     const form = e.currentTarget;
     e.preventDefault();
     e.stopPropagation();
-
-    if (harga == 0) {
-      setHarga(Number("-"));
-    }
-    if (stok == 0) {
-      setStok(Number("-"));
-    }
 
     setFormValidated(true);
 
@@ -130,7 +123,7 @@ const Produk = () => {
   // sorting
 
   return (
-    <div>
+    <div className="2xl:max-w-3/4 mx-auto">
       <h2 className="mx-8 my-4">Manajemen Produk</h2>
       {/* top menu: cari, sort, add */}
       <div className="mx-8 flex justify-between">
@@ -164,8 +157,8 @@ const Produk = () => {
       <div className="flex flex-col space-y-4 sm:flex-row sm:flex-wrap mx-4">
         {produks.map((produk, i) => (
           //CardProduct COMPONENT
-          <div key={i} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-2">
-            <Card className="">
+          <div key={i} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-2 ">
+            <Card className="hover:shadow-lg hover:cursor-pointer">
               <Card.Img variant="top" src="produk.jpg" />
               <Card.Body>
                 <Card.Title className="mb-2 !font-bold">
@@ -207,6 +200,8 @@ const Produk = () => {
         ))}
       </div>
 
+      {/* pagination */}
+
       {/* MODAL SUBMIT */}
       <Modal
         show={modalAdd}
@@ -238,6 +233,7 @@ const Produk = () => {
               <Form.Control
                 value={harga}
                 required
+                min={1}
                 type="number"
                 placeholder=""
                 onChange={(e) => setHarga(Number(e.target.value))}
@@ -250,6 +246,7 @@ const Produk = () => {
               <Form.Control
                 value={stok}
                 required
+                min={1}
                 type="number"
                 placeholder=""
                 onChange={(e) => setStok(Number(e.target.value))}

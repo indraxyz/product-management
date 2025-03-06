@@ -28,15 +28,21 @@ export default function Home() {
         {/* try bootsrtap */}
         <Stack direction="horizontal" gap={2}>
           <Button
-            as="button"
+            as="a"
             variant="primary"
             className="hover:underline flex"
+            href="/product"
+            target="_blank"
           >
             <BsAndroid className="inline mr-2" />
-            Button as link
+            Product Management
           </Button>
-          <Button as="a" variant="success" className="hover:drop-shadow-lg">
-            Button as link
+          <Button
+            as="button"
+            variant="success"
+            className="hover:drop-shadow-lg"
+          >
+            Button
           </Button>
         </Stack>
         <div className="w-full">

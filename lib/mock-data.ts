@@ -35,7 +35,7 @@ const PRODUK = [
     id: 5,
     nama: "Nama Produ5",
     harga: 1000,
-    stok: 9,
+    stok: 99,
     deskripsi:
       "Some quick example text to build on the card title and make up the bulk of the card content.",
   },
