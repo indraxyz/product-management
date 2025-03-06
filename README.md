@@ -6,19 +6,24 @@ Manajemen data produk
 - nextjs
 - bootstrap
 - tailwind
+- react-icons
 
 ## Features
 
     Responsive Ui (dekstop-mobile)
-    state : react hooks (useState), redux
+    state : react hooks (useState), ♻️redux
     Manage Product :
-    list products (card)
-    form add & edit product with inputs validation,
-    delete product with confirmation
-    rest api : react query
+        ♻️list products (card),  paginate data, multiple selected data
+        form add & edit product with inputs ♻️validation (formik validation, yup schema builder),
+        delete product with confirmation
+        filter :
+        ♻️ search products
+        ♻️ sorting products
+        ♻️ varian data by column
+    rest api : ♻️swr
 
-    ♻️ search products
-    ♻️ sorting products
+    run local
+    deploy production
 
 ## how to run locally
 
