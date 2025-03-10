@@ -21,11 +21,11 @@ Manajemen data produk
         ♻️ sorting products
         ♻️ varian data by column
     ♻️notif after action (toast)
-    ♻️component base
+    ♻️component base, module aliases
     rest api : ♻️swr
 
     run local
-    deploy production
+    deploy production: VERCEL
 
 ## how to run locally
 

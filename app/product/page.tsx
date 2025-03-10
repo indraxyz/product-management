@@ -1,7 +1,6 @@
 "use client";
 
-// PRODUK: nama, harga, stok, deskripsi
-
+// MODULE ALIAS  import Tes from "@/components/tes";
 import {
   Card,
   Button,
@@ -52,7 +51,7 @@ const Produk = () => {
 
     setFormValidated(true);
 
-    // validasi
+    // validasi inputs with schema
     if (form.checkValidity() === true) {
       // NEW
       if (submit == 0) {
@@ -125,7 +124,7 @@ const Produk = () => {
   return (
     <div className="2xl:max-w-3/4 mx-auto">
       <h2 className="mx-8 my-4">Manajemen Produk</h2>
-      {/* top menu: cari, sort, add */}
+      {/* add, table filter: cari, sort, selection,  */}
       <div className="mx-8 flex justify-between">
         <div className="w-1/2 sm:w-1/4">
           <InputGroup className="mb-3">
@@ -153,10 +152,10 @@ const Produk = () => {
         </div>
       </div>
 
-      {/* data: card */}
+      {/* list products */}
       <div className="flex flex-col space-y-4 sm:flex-row sm:flex-wrap mx-4">
         {produks.map((produk, i) => (
-          //CardProduct COMPONENT
+          //COMPONENT CardProduct, multy select data
           <div key={i} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-2 ">
             <Card className="hover:shadow-lg hover:cursor-pointer">
               <Card.Img variant="top" src="produk.jpg" />
@@ -201,6 +200,8 @@ const Produk = () => {
       </div>
 
       {/* pagination */}
+
+      {/* action notification with TOAST */}
 
       {/* MODAL SUBMIT */}
       <Modal
