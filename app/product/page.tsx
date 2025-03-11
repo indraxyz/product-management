@@ -8,6 +8,7 @@ import {
   InputGroup,
   Modal,
   FloatingLabel,
+  Pagination,
 } from "react-bootstrap";
 import {
   BsPenFill,
@@ -138,17 +139,19 @@ const Produk = () => {
         <div className="!space-x-2">
           <Button
             variant="primary"
-            className="p-2 !rounded-full"
+            className="p-0 !rounded-full"
             onClick={() => {
               setSubmit(0);
               setModalAdd(true);
             }}
           >
-            <BsPlusCircleFill />
+            <BsPlusCircleFill className="text-4xl p-0.5" />
           </Button>
-          <Button variant="primary" className="p-2 !rounded-full">
-            <BsFilterCircleFill />
+          <Button variant="primary" className="p-0 !rounded-full">
+            <BsFilterCircleFill className="text-4xl p-0.5" />
           </Button>
+          {/* filter */}
+          {/* deletes */}
         </div>
       </div>
 
@@ -158,6 +161,11 @@ const Produk = () => {
           //COMPONENT CardProduct, multy select data
           <div key={i} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-2 ">
             <Card className="hover:shadow-lg hover:cursor-pointer">
+              <Form.Check
+                type="checkbox"
+                label=""
+                className="absolute left-2 top-1"
+              />
               <Card.Img variant="top" src="produk.jpg" />
               <Card.Body>
                 <Card.Title className="mb-2 !font-bold">
@@ -180,7 +188,7 @@ const Produk = () => {
                     className="p-2 !rounded-full"
                     onClick={() => editProduk(produk)}
                   >
-                    <BsPenFill />
+                    <BsPenFill className="text-base" />
                   </Button>
                   <Button
                     variant="primary"
@@ -190,7 +198,7 @@ const Produk = () => {
                       setSelectedProduk(produk.id);
                     }}
                   >
-                    <BsFillTrashFill />
+                    <BsFillTrashFill className="text-base" />
                   </Button>
                 </div>
               </Card.Body>
@@ -200,6 +208,13 @@ const Produk = () => {
       </div>
 
       {/* pagination */}
+      <div className="mx-8">
+        <Pagination>
+          <Pagination.Prev />
+          <Pagination.Item>x</Pagination.Item>
+          <Pagination.Next />
+        </Pagination>
+      </div>
 
       {/* action notification with TOAST */}
 
