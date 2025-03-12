@@ -12,10 +12,11 @@ import {
 } from "react-bootstrap";
 import {
   BsPenFill,
-  BsFillTrashFill,
+  BsTrashFill,
   BsPlusCircleFill,
-  BsFilterCircleFill,
+  BsFilter,
   BsSearch,
+  BsFunnelFill,
 } from "react-icons/bs";
 import { PRODUK } from "../../lib/mock-data";
 import { useState } from "react";
@@ -138,20 +139,27 @@ const Produk = () => {
 
         <div className="!space-x-2">
           <Button
-            variant="primary"
-            className="p-0 !rounded-full"
+            variant="link"
+            className="p-0 !m-0 !rounded-full"
             onClick={() => {
               setSubmit(0);
               setModalAdd(true);
             }}
           >
-            <BsPlusCircleFill className="text-4xl p-0.5" />
+            <BsPlusCircleFill className="text-[55px] p-2" />
           </Button>
+          {/* sorting */}
           <Button variant="primary" className="p-0 !rounded-full">
-            <BsFilterCircleFill className="text-4xl p-0.5" />
+            <BsFilter className="text-4xl p-1" />
           </Button>
           {/* filter */}
+          <Button variant="primary" className="p-0 !rounded-full">
+            <BsFunnelFill className="text-4xl p-2" />
+          </Button>
           {/* deletes */}
+          <Button variant="primary" className="p-0 !rounded-full">
+            <BsTrashFill className="text-4xl p-2" />
+          </Button>
         </div>
       </div>
 
@@ -198,7 +206,7 @@ const Produk = () => {
                       setSelectedProduk(produk.id);
                     }}
                   >
-                    <BsFillTrashFill className="text-base" />
+                    <BsTrashFill className="text-base" />
                   </Button>
                 </div>
               </Card.Body>

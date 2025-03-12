@@ -20,6 +20,7 @@ Manajemen data produk
         ♻️ search products
         ♻️ sorting products
         ♻️ filter by column
+        🔃 deletes
     ♻️notif after action (toast)
     ♻️component base, module aliases
     rest api : ♻️swr
