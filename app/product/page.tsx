@@ -9,6 +9,7 @@ import {
   Modal,
   FloatingLabel,
   Pagination,
+  FormCheck,
 } from "react-bootstrap";
 import {
   BsPenFill,
@@ -127,9 +128,9 @@ const Produk = () => {
     <div className="2xl:max-w-3/4 mx-auto">
       <h2 className="mx-8 my-4">Manajemen Produk</h2>
       {/* add, table filter: cari, sort, selection,  */}
-      <div className="mx-8 flex justify-between">
-        <div className="w-1/2 sm:w-1/4">
-          <InputGroup className="mb-3">
+      <div className="mx-8 flex! flex-col-reverse sm:flex-row justify-between sm:items-center mb-3 ">
+        <div className="w-full sm:w-1/3">
+          <InputGroup className="">
             <Form.Control placeholder="nama produk" />
             <Button variant="outline-secondary" id="button-addon2">
               <BsSearch />
@@ -137,8 +138,9 @@ const Produk = () => {
           </InputGroup>
         </div>
 
-        <div className="!space-x-2">
+        <div className="!space-x-2 ">
           <Button
+            title="add new product"
             variant="link"
             className="p-0 !m-0 !rounded-full"
             onClick={() => {
@@ -146,19 +148,19 @@ const Produk = () => {
               setModalAdd(true);
             }}
           >
-            <BsPlusCircleFill className="text-[55px] p-2" />
+            <BsPlusCircleFill className="text-[48px] sm:text-[54px] p-2" />
+          </Button>
+          {/* deletes */}
+          <Button disabled variant="primary" className="p-0 !rounded-full">
+            <BsTrashFill className="text-3xl sm:text-4xl p-2" />
           </Button>
           {/* sorting */}
           <Button variant="primary" className="p-0 !rounded-full">
-            <BsFilter className="text-4xl p-1" />
+            <BsFilter className="text-3xl sm:text-4xl p-1" />
           </Button>
           {/* filter */}
           <Button variant="primary" className="p-0 !rounded-full">
-            <BsFunnelFill className="text-4xl p-2" />
-          </Button>
-          {/* deletes */}
-          <Button variant="primary" className="p-0 !rounded-full">
-            <BsTrashFill className="text-4xl p-2" />
+            <BsFunnelFill className="text-3xl sm:text-4xl p-2" />
           </Button>
         </div>
       </div>
@@ -169,11 +171,9 @@ const Produk = () => {
           //COMPONENT CardProduct, multy select data
           <div key={i} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-2 ">
             <Card className="hover:shadow-lg hover:cursor-pointer">
-              <Form.Check
-                type="checkbox"
-                label=""
-                className="absolute left-2 top-1"
-              />
+              <FormCheck className="absolute left-2 top-1">
+                <FormCheck.Input type="checkbox" className="shadow-sm" />
+              </FormCheck>
               <Card.Img variant="top" src="produk.jpg" />
               <Card.Body>
                 <Card.Title className="mb-2 !font-bold">
@@ -216,7 +216,7 @@ const Produk = () => {
       </div>
 
       {/* pagination */}
-      <div className="mx-8">
+      <div className="mx-8 mt-4 sm:mt-2! justify-items-center">
         <Pagination>
           <Pagination.Prev />
           <Pagination.Item>x</Pagination.Item>
