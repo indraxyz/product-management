@@ -11,18 +11,18 @@ Manajemen data produk
 ## Features
 
     Responsive Ui (dekstop-mobile)
-    state : react hooks (useState), ♻️redux
+    state : react hooks (useState), ♻️📌redux
     Manage Product :
-        list products (card), ♻️paginate data, ♻️multiple selected data (delete)
+        list products (card), ♻️paginate, multiple selected data
         form add & edit product with inputs ♻️validation (formik validation, yup schema builder),
         delete product with confirmation
         menu :
-        ♻️ search products
+        ♻️ 📌search products
         ♻️ sorting products
         ♻️ filter by column
-        🔃 deletes
-    ♻️notif after action (toast)
-    ♻️component base, module aliases
+        deletes confirmation
+    notif after action (toast)
+    ♻️📌component base, module aliases
     rest api : ♻️swr
 
     run local

@@ -10,6 +10,8 @@ import {
   FloatingLabel,
   Pagination,
   FormCheck,
+  Toast,
+  ToastContainer,
 } from "react-bootstrap";
 import {
   BsPenFill,
@@ -18,6 +20,7 @@ import {
   BsFilter,
   BsSearch,
   BsFunnelFill,
+  BsBellFill,
 } from "react-icons/bs";
 import { PRODUK } from "../../lib/mock-data";
 import { useState } from "react";
@@ -33,8 +36,9 @@ type produkType = {
 
 const Produk = () => {
   // init state
+  const [selectedProducts, setSelectedProducts] = useState<number[]>([]);
   const [produks, setProduks] = useState(PRODUK);
-  const [modalAdd, setModalAdd] = useState(false);
+  const [modalSubmit, setModalSubmit] = useState(false);
   const [nama, setNama] = useState("");
   const [harga, setHarga] = useState(0);
   const [stok, setStok] = useState(0);
@@ -45,6 +49,9 @@ const Produk = () => {
   const [selectedProduk, setSelectedProduk] = useState(0);
 
   const [modalDelete, setModalDelete] = useState(false);
+  const [modalDeletes, setModalDeletes] = useState(false);
+  const [toast, setToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
 
   // add
   const submitProduk = (e: React.FormEvent<HTMLFormElement>) => {
@@ -67,6 +74,7 @@ const Produk = () => {
         };
 
         setProduks([newProduk, ...produks]);
+        setToastMessage("Successfully add product");
       } else if (submit == 1) {
         // UPDATE
         const idx = produks.findIndex((p) => p.id == selectedProduk);
@@ -75,21 +83,21 @@ const Produk = () => {
         produks[idx].stok = stok;
         produks[idx].deskripsi = deskripsi;
 
-        // console.log(produkUpdate);
+        setToastMessage("Successfully updated product");
       }
 
-      setModalAdd(false);
+      setModalSubmit(false);
       setFormValidated(false);
-      resetSubmit();
+      setToast(true);
     }
   };
-  const resetSubmit = () => {
+  const resetFormSubmit = () => {
     setNama("");
     setHarga(0);
     setStok(0);
     setDeskripsi("");
 
-    setModalAdd(false);
+    // setModalSubmit(false);
     setFormValidated(false);
   };
 
@@ -102,17 +110,40 @@ const Produk = () => {
     setStok(p.stok);
     setDeskripsi(p.deskripsi);
     setSelectedProduk(p.id);
-    setModalAdd(true);
+    setModalSubmit(true);
   };
 
   // delete
   const delProduk = () => {
     setProduks((p) => p.filter((c) => c.id !== selectedProduk));
     setModalDelete(false);
+    setToast(true);
+    setToastMessage("Successfully deleted product");
   };
 
-  // cari
-  // const searchProduk = (k: string) => {
+  const _selectProducts = (
+    id: number,
+    e: React.FormEvent<HTMLInputElement>
+  ) => {
+    const checked = e.currentTarget.checked;
+    if (checked) {
+      setSelectedProducts([id, ...selectedProducts]); //add
+    } else {
+      // remove
+      setSelectedProducts(selectedProducts.filter((p) => p !== id));
+    }
+  };
+
+  const _deleteProducts = () => {
+    console.log(selectedProducts);
+    setProduks(produks.filter((x) => !selectedProducts.includes(x.id)));
+    setModalDeletes(false);
+    setToast(true);
+    setToastMessage("Successfully deleted these Products");
+  };
+
+  // search product
+  // const searchProduct = (k: string) => {
   //   if (k == "Enter" && search.length > 2) {
   //     const sp = copyProduk.filter(
   //       (item) => item.name.toLowerCase().indexOf(search.toLowerCase()) > -1
@@ -145,13 +176,19 @@ const Produk = () => {
             className="p-0 !m-0 !rounded-full"
             onClick={() => {
               setSubmit(0);
-              setModalAdd(true);
+              setModalSubmit(true);
+              resetFormSubmit();
             }}
           >
             <BsPlusCircleFill className="text-[48px] sm:text-[54px] p-2" />
           </Button>
           {/* deletes */}
-          <Button disabled variant="primary" className="p-0 !rounded-full">
+          <Button
+            disabled={selectedProducts.length >= 1 ? false : true}
+            variant="primary"
+            className="p-0 !rounded-full"
+            onClick={() => setModalDeletes(true)}
+          >
             <BsTrashFill className="text-3xl sm:text-4xl p-2" />
           </Button>
           {/* sorting */}
@@ -167,12 +204,19 @@ const Produk = () => {
 
       {/* list products */}
       <div className="flex flex-col space-y-4 sm:flex-row sm:flex-wrap mx-4">
-        {produks.map((produk, i) => (
+        {produks.map((produk) => (
           //COMPONENT CardProduct, multy select data
-          <div key={i} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-2 ">
+          <div
+            key={produk.id}
+            className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-2 "
+          >
             <Card className="hover:shadow-lg hover:cursor-pointer">
               <FormCheck className="absolute left-2 top-1">
-                <FormCheck.Input type="checkbox" className="shadow-sm" />
+                <FormCheck.Input
+                  type="checkbox"
+                  className="shadow-sm"
+                  onChange={(e) => _selectProducts(produk.id, e)}
+                />
               </FormCheck>
               <Card.Img variant="top" src="produk.jpg" />
               <Card.Body>
@@ -228,8 +272,8 @@ const Produk = () => {
 
       {/* MODAL SUBMIT */}
       <Modal
-        show={modalAdd}
-        onHide={resetSubmit}
+        show={modalSubmit}
+        onHide={() => setModalSubmit(false)}
         backdrop="static"
         keyboard={false}
       >
@@ -295,7 +339,7 @@ const Produk = () => {
             </FloatingLabel>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={resetSubmit}>
+            <Button variant="secondary" onClick={() => setModalSubmit(false)}>
               Cancel
             </Button>
             <Button variant="primary" type="submit">
@@ -327,6 +371,47 @@ const Produk = () => {
           </Button>
         </Modal.Footer>
       </Modal>
+
+      {/* MODAL DELETEs PRODUCTS */}
+      <Modal
+        show={modalDeletes}
+        onHide={() => setModalDeletes(false)}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Delete Products</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="space-y-4">
+          <p>Are you sure want to delete these selected products?</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setModalDeletes(false)}>
+            Cancel
+          </Button>
+          <Button variant="primary" onClick={() => _deleteProducts()}>
+            Delete
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* NOTIF TOAST */}
+      <ToastContainer className="z-10 mb-4" position="bottom-center">
+        <Toast
+          bg="primary"
+          onClose={() => setToast(false)}
+          show={toast}
+          delay={3000}
+          autohide
+        >
+          <Toast.Header closeButton={false} className="justify-end">
+            <BsBellFill className="text-xl text-orange-600" />
+          </Toast.Header>
+          <Toast.Body className="font-bold text-white">
+            {toastMessage}
+          </Toast.Body>
+        </Toast>
+      </ToastContainer>
     </div>
   );
 };
