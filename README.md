@@ -16,14 +16,15 @@ Manajemen data produk
         list products (card), ♻️paginate, multiple selected data
         form add & edit product with inputs ♻️validation (formik validation, yup schema builder),
         delete product with confirmation
+        ♻️ detail product
         menu :
-        ♻️ 📌search products
+        search products, ♻️reset searchs
         ♻️ sorting products
         ♻️ filter by column
         deletes confirmation
     notif after action (toast)
     ♻️📌component base, module aliases
-    rest api : ♻️swr
+    rest api : ♻️react-query
 
     run local
     deploy production: VERCEL

@@ -24,15 +24,18 @@ import {
 } from "react-icons/bs";
 import { PRODUK } from "../../lib/mock-data";
 import { useState } from "react";
+import { constants } from "node:crypto";
+import { resolve } from "node:path";
 
 // type
-type produkType = {
+type ProductType = {
   id: number;
   nama: string;
   stok: number;
   harga: number;
   deskripsi: string;
 };
+let productsCopy: ProductType[] = [];
 
 const Produk = () => {
   // init state
@@ -52,6 +55,7 @@ const Produk = () => {
   const [modalDeletes, setModalDeletes] = useState(false);
   const [toast, setToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
+  const [search, setSearch] = useState("");
 
   // add
   const submitProduk = (e: React.FormEvent<HTMLFormElement>) => {
@@ -102,7 +106,7 @@ const Produk = () => {
   };
 
   // edit
-  const editProduk = (p: produkType) => {
+  const editProduk = (p: ProductType) => {
     setSubmit(1);
 
     setNama(p.nama);
@@ -142,28 +146,48 @@ const Produk = () => {
     setToastMessage("Successfully deleted these Products");
   };
 
+  const _detailProduct = (product: ProductType) => {
+    console.log("detail product");
+    setToast(true);
+    setToastMessage(`📦 Detail Product of ${product.nama}`);
+  };
+
   // search product
-  // const searchProduct = (k: string) => {
-  //   if (k == "Enter" && search.length > 2) {
-  //     const sp = copyProduk.filter(
-  //       (item) => item.name.toLowerCase().indexOf(search.toLowerCase()) > -1
-  //     );
-  //     // console.log(sp);
-  //     setProduks([...sp]);
-  //   }
-  // };
+  const _searchProduct = async (k: string) => {
+    if (k.toLowerCase() == "enter" && search.length > 2) {
+      // console.log(productsCopy.length);
+
+      productsCopy.length == 0 ? (productsCopy = [...produks]) : null;
+      // await new Promise((resolve) => setTimeout(resolve, 1000)); //inline delay
+      const res = productsCopy.filter(
+        (item) => item.nama.toLowerCase().indexOf(search.toLowerCase()) > -1
+      );
+      setProduks([...res]);
+      // console.log(productsCopy);
+      // console.log(res);
+    }
+  };
 
   // sorting
 
   return (
     <div className="2xl:max-w-3/4 mx-auto">
-      <h2 className="mx-8 my-4">Manajemen Produk</h2>
+      <h2 className="mx-8 my-4">Manage Products</h2>
       {/* add, table filter: cari, sort, selection,  */}
       <div className="mx-8 flex! flex-col-reverse sm:flex-row justify-between sm:items-center mb-3 ">
         <div className="w-full sm:w-1/3">
           <InputGroup className="">
-            <Form.Control placeholder="nama produk" />
-            <Button variant="outline-secondary" id="button-addon2">
+            <Form.Control
+              placeholder="product name"
+              onKeyDown={(e) => _searchProduct(e.key)}
+              value={search}
+              onChange={(v) => setSearch(v.target.value)}
+            />
+            <Button
+              variant="outline-secondary"
+              id="button-addon2"
+              onClick={() => _searchProduct("enter")}
+            >
               <BsSearch />
             </Button>
           </InputGroup>
@@ -184,6 +208,7 @@ const Produk = () => {
           </Button>
           {/* deletes */}
           <Button
+            title="delete products"
             disabled={selectedProducts.length >= 1 ? false : true}
             variant="primary"
             className="p-0 !rounded-full"
@@ -192,11 +217,19 @@ const Produk = () => {
             <BsTrashFill className="text-3xl sm:text-4xl p-2" />
           </Button>
           {/* sorting */}
-          <Button variant="primary" className="p-0 !rounded-full">
+          <Button
+            title="sorting products"
+            variant="primary"
+            className="p-0 !rounded-full"
+          >
             <BsFilter className="text-3xl sm:text-4xl p-1" />
           </Button>
           {/* filter */}
-          <Button variant="primary" className="p-0 !rounded-full">
+          <Button
+            title="filtering products"
+            variant="primary"
+            className="p-0 !rounded-full"
+          >
             <BsFunnelFill className="text-3xl sm:text-4xl p-2" />
           </Button>
         </div>
@@ -210,7 +243,10 @@ const Produk = () => {
             key={produk.id}
             className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-2 "
           >
-            <Card className="hover:shadow-lg hover:cursor-pointer">
+            <Card
+              className="hover:shadow-lg hover:cursor-pointer"
+              onClick={() => _detailProduct(produk)}
+            >
               <FormCheck className="absolute left-2 top-1">
                 <FormCheck.Input
                   type="checkbox"
@@ -396,7 +432,10 @@ const Produk = () => {
       </Modal>
 
       {/* NOTIF TOAST */}
-      <ToastContainer className="z-10 mb-4" position="bottom-center">
+      <ToastContainer
+        className="fixed! w-full py-4 bottom-5"
+        style={{ justifySelf: "anchor-center" }}
+      >
         <Toast
           bg="primary"
           onClose={() => setToast(false)}
