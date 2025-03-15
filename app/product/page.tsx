@@ -21,11 +21,10 @@ import {
   BsSearch,
   BsFunnelFill,
   BsBellFill,
+  BsArrowRepeat,
 } from "react-icons/bs";
 import { PRODUK } from "../../lib/mock-data";
 import { useState } from "react";
-import { constants } from "node:crypto";
-import { resolve } from "node:path";
 
 // type
 type ProductType = {
@@ -56,6 +55,7 @@ const Produk = () => {
   const [toast, setToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [search, setSearch] = useState("");
+  // const [productsCopy, setProductsCopy] = useState<ProductType[]>([]);
 
   // add
   const submitProduk = (e: React.FormEvent<HTMLFormElement>) => {
@@ -79,6 +79,7 @@ const Produk = () => {
 
         setProduks([newProduk, ...produks]);
         setToastMessage("Successfully add product");
+        productsCopy = [newProduk, ...produks];
       } else if (submit == 1) {
         // UPDATE
         const idx = produks.findIndex((p) => p.id == selectedProduk);
@@ -88,6 +89,7 @@ const Produk = () => {
         produks[idx].deskripsi = deskripsi;
 
         setToastMessage("Successfully updated product");
+        productsCopy = [...produks];
       }
 
       setModalSubmit(false);
@@ -153,12 +155,12 @@ const Produk = () => {
   };
 
   // search product
-  const _searchProduct = async (k: string) => {
+  const _searchProduct = (k: string) => {
     if (k.toLowerCase() == "enter" && search.length > 2) {
-      // console.log(productsCopy.length);
-
-      productsCopy.length == 0 ? (productsCopy = [...produks]) : null;
       // await new Promise((resolve) => setTimeout(resolve, 1000)); //inline delay
+      if (productsCopy.length == 0) {
+        productsCopy = [...produks];
+      }
       const res = productsCopy.filter(
         (item) => item.nama.toLowerCase().indexOf(search.toLowerCase()) > -1
       );
@@ -231,6 +233,19 @@ const Produk = () => {
             className="p-0 !rounded-full"
           >
             <BsFunnelFill className="text-3xl sm:text-4xl p-2" />
+          </Button>
+          {/* reset products list */}
+          <Button
+            disabled={productsCopy.length == 0 ? true : false}
+            title="reset products list"
+            variant="primary"
+            className="p-0 !rounded-full"
+            onClick={() => {
+              setProduks([...productsCopy]);
+              setSearch("");
+            }}
+          >
+            <BsArrowRepeat className="text-3xl sm:text-4xl p-1" />
           </Button>
         </div>
       </div>

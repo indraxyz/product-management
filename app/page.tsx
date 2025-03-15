@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Button, Stack, ProgressBar } from "react-bootstrap";
+import { Button, Stack } from "react-bootstrap";
 import { BsAndroid, BsGithub } from "react-icons/bs";
 
 export default function Home() {

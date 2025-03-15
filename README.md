@@ -18,7 +18,7 @@ Manajemen data produk
         delete product with confirmation
         ♻️ detail product
         menu :
-        search products, ♻️reset searchs
+        search products, reset searchs
         ♻️ sorting products
         ♻️ filter by column
         deletes confirmation
